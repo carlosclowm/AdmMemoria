@@ -5,7 +5,7 @@
  */
 package Ventanas;
 
-import javax.swing.DefaultListModel;
+import java.awt.Color;
 import javax.swing.ImageIcon;
 
 /**
@@ -14,19 +14,16 @@ import javax.swing.ImageIcon;
  */
 public class Main extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Main
-     */
-    Proceso[] pro = new Proceso[5];
+    ListaProcesos LP = new ListaProcesos();
+    Color[] color = new Color[24];
     int c=0;
-    DefaultListModel<String> modelo = new DefaultListModel<>();
-    int Memoria=24;
-    Celdas cl = new Celdas();
-    int index;
     
     public Main() {
         initComponents();
-        Actualizar();
+        for(int i = 0; i<24; i++){
+            color[i] = Color.green;
+        }
+        Pintar();
     }
 
     /**
@@ -51,7 +48,7 @@ public class Main extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
-        lstProcesos = new javax.swing.JList<>();
+        panelProcesos = new javax.swing.JPanel();
         btnR2 = new javax.swing.JButton();
         btnR4 = new javax.swing.JButton();
         btnR1 = new javax.swing.JButton();
@@ -77,10 +74,8 @@ public class Main extends javax.swing.JFrame {
         btnR14 = new javax.swing.JButton();
         btnR13 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        lblMemoria = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -110,7 +105,7 @@ public class Main extends javax.swing.JFrame {
         jLabel4.setForeground(java.awt.Color.white);
         jLabel4.setText("Nombre");
 
-        txtNombre.setBackground(new java.awt.Color(0,0,0,80));
+        txtNombre.setBackground(java.awt.Color.darkGray);
         txtNombre.setForeground(java.awt.Color.white);
         txtNombre.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtNombre.setName(""); // NOI18N
@@ -118,7 +113,7 @@ public class Main extends javax.swing.JFrame {
         jLabel5.setForeground(java.awt.Color.white);
         jLabel5.setText("Tamaño de Memoria");
 
-        txtMemoria.setBackground(new java.awt.Color(0,0,0,80));
+        txtMemoria.setBackground(java.awt.Color.darkGray);
         txtMemoria.setForeground(java.awt.Color.white);
         txtMemoria.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
@@ -180,39 +175,35 @@ public class Main extends javax.swing.JFrame {
         jLabel2.setForeground(java.awt.Color.white);
         jLabel2.setText("Lista de Procesos");
 
-        lstProcesos.setBackground(java.awt.Color.gray);
-        lstProcesos.setForeground(java.awt.Color.white);
-        lstProcesos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        lstProcesos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lstProcesosMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(lstProcesos);
+        jScrollPane1.setBackground(new java.awt.Color(0,0,0,129));
+
+        panelProcesos.setBackground(java.awt.Color.lightGray);
+        panelProcesos.setMaximumSize(new java.awt.Dimension(150, 30));
+        panelProcesos.setMinimumSize(new java.awt.Dimension(150, 30));
+        panelProcesos.setOpaque(false);
+        panelProcesos.setPreferredSize(new java.awt.Dimension(150, 30));
+        panelProcesos.setLayout(new java.awt.GridLayout(10, 0));
+        jScrollPane1.setViewportView(panelProcesos);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator3)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(0, 2, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap())
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jSeparator3)
+            .addComponent(jScrollPane1)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         getContentPane().add(jPanel2);
@@ -388,42 +379,29 @@ public class Main extends javax.swing.JFrame {
 
         jButton1.setBackground(java.awt.Color.magenta);
         jButton1.setForeground(java.awt.Color.white);
-        jButton1.setText("Pasando de Espera a Usado");
+        jButton1.setText("Espera");
         jButton1.setFocusable(false);
         jButton1.setRolloverEnabled(false);
         getContentPane().add(jButton1);
-        jButton1.setBounds(310, 420, 220, 30);
-
-        jButton2.setBackground(java.awt.Color.blue);
-        jButton2.setForeground(java.awt.Color.white);
-        jButton2.setText("Libre");
-        jButton2.setFocusable(false);
-        jButton2.setRolloverEnabled(false);
-        getContentPane().add(jButton2);
-        jButton2.setBounds(450, 390, 80, 30);
+        jButton1.setBounds(480, 420, 80, 30);
 
         jButton3.setBackground(java.awt.Color.green);
         jButton3.setForeground(java.awt.Color.white);
-        jButton3.setText("Usado");
+        jButton3.setText("Libre");
         jButton3.setFocusPainted(false);
+        jButton3.setFocusable(false);
         jButton3.setRolloverEnabled(false);
         getContentPane().add(jButton3);
-        jButton3.setBounds(310, 390, 80, 30);
+        jButton3.setBounds(400, 420, 80, 30);
 
-        lblMemoria.setBackground(java.awt.Color.black);
-        lblMemoria.setForeground(java.awt.Color.white);
-        lblMemoria.setText("Memoria");
-        getContentPane().add(lblMemoria);
-        lblMemoria.setBounds(590, 440, 50, 14);
-
-        jButton4.setText("Eliminar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton4);
-        jButton4.setBounds(660, 440, 90, 23);
+        jButton2.setBackground(java.awt.Color.blue);
+        jButton2.setForeground(java.awt.Color.white);
+        jButton2.setText("Listo");
+        jButton2.setFocusable(false);
+        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton2.setRolloverEnabled(false);
+        getContentPane().add(jButton2);
+        jButton2.setBounds(320, 420, 80, 30);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/backfont.jpg"))); // NOI18N
         getContentPane().add(jLabel3);
@@ -433,58 +411,48 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
-        pro[c] = new Proceso(c, "Listo", txtNombre.getText(), Integer.parseInt(txtMemoria.getText()));
-        modelo.addElement(pro[c].getNombre());
-        lstProcesos.setModel(modelo);
-        Memoria -= Integer.parseInt(txtMemoria.getText());
-        lblMemoria.setText(Integer.toString(Memoria));
-        cl.Agregar(pro[c].Memoria);
-        Actualizar();
-        c++;
-        txtNombre.setText("");
-        txtMemoria.setText("");
-        
+    LP.Agregar(txtNombre.getText(), Integer.parseInt(txtMemoria.getText()));
+    AgregarEnMemoria(Integer.parseInt(txtMemoria.getText()));
+    txtNombre.setText(""); txtMemoria.setText("");
+    panelProcesos.add(LP.UB());
+    panelProcesos.updateUI();
     }//GEN-LAST:event_btnCrearActionPerformed
 
-    private void lstProcesosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstProcesosMouseClicked
-        index = lstProcesos.getSelectedIndex();
-        lblMemoria.setText(pro[index].getEstado());
-    }//GEN-LAST:event_lstProcesosMouseClicked
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        cl.Eliminar(pro[index].getMemoria());
-        Actualizar();
-        modelo.remove(index);
-        lstProcesos.setModel(modelo);
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void Actualizar(){
-        btnR1.setBackground(cl.ColorCell(1));
-        btnR2.setBackground(cl.ColorCell(2));
-        btnR3.setBackground(cl.ColorCell(3));
-        btnR4.setBackground(cl.ColorCell(4));
-        btnR5.setBackground(cl.ColorCell(5));
-        btnR6.setBackground(cl.ColorCell(6));
-        btnR7.setBackground(cl.ColorCell(7));
-        btnR8.setBackground(cl.ColorCell(8));
-        btnR9.setBackground(cl.ColorCell(9));
-        btnR10.setBackground(cl.ColorCell(10));
-        btnR11.setBackground(cl.ColorCell(11));
-        btnR12.setBackground(cl.ColorCell(12));
-        btnR13.setBackground(cl.ColorCell(13));
-        btnR14.setBackground(cl.ColorCell(14));
-        btnR15.setBackground(cl.ColorCell(15));
-        btnR16.setBackground(cl.ColorCell(16));
-        btnR17.setBackground(cl.ColorCell(17));
-        btnR18.setBackground(cl.ColorCell(18));
-        btnR19.setBackground(cl.ColorCell(19));
-        btnR20.setBackground(cl.ColorCell(20));
-        btnR21.setBackground(cl.ColorCell(21));
-        btnR22.setBackground(cl.ColorCell(22));
-        btnR23.setBackground(cl.ColorCell(23));
-        btnR24.setBackground(cl.ColorCell(24));
+    
+    private void AgregarEnMemoria(int n){
+        for(int i = 0; i<n;i++){
+            color[c] = Color.blue;
+            c++;
+        }
+        Pintar();
     }
-
+    private void Pintar(){
+        btnR1.setBackground(color[0]);
+        btnR2.setBackground(color[1]);
+        btnR3.setBackground(color[2]);
+        btnR4.setBackground(color[3]);
+        btnR5.setBackground(color[4]);
+        btnR6.setBackground(color[5]);
+        btnR7.setBackground(color[6]);
+        btnR8.setBackground(color[7]);
+        btnR9.setBackground(color[8]);
+        btnR10.setBackground(color[9]);
+        btnR11.setBackground(color[10]);
+        btnR12.setBackground(color[11]);
+        btnR13.setBackground(color[12]);
+        btnR14.setBackground(color[13]);
+        btnR15.setBackground(color[14]);
+        btnR16.setBackground(color[15]);
+        btnR17.setBackground(color[16]);
+        btnR18.setBackground(color[17]);
+        btnR19.setBackground(color[18]);
+        btnR20.setBackground(color[19]);
+        btnR21.setBackground(color[20]);
+        btnR22.setBackground(color[21]);
+        btnR23.setBackground(color[22]);
+        btnR24.setBackground(color[23]);
+        
+    }
     /**
      * @param args the command line arguments
      */
@@ -549,7 +517,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -561,8 +528,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JLabel lblMemoria;
-    private javax.swing.JList<String> lstProcesos;
+    private javax.swing.JPanel panelProcesos;
     private javax.swing.JTextField txtMemoria;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
