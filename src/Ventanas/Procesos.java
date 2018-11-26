@@ -8,7 +8,7 @@ public class Procesos {
     private String nombre;
     private int tamaño;
     private String estado;
-    private JButton btn;
+    public JButton btn;
     
     public Procesos() {
         this.nombre = "";

@@ -6,7 +6,11 @@
 package Ventanas;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,6 +28,7 @@ public class Main extends javax.swing.JFrame {
             color[i] = Color.green;
         }
         Pintar();
+
     }
 
     /**
@@ -47,7 +52,6 @@ public class Main extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
-        jScrollPane1 = new javax.swing.JScrollPane();
         panelProcesos = new javax.swing.JPanel();
         btnR2 = new javax.swing.JButton();
         btnR4 = new javax.swing.JButton();
@@ -82,9 +86,8 @@ public class Main extends javax.swing.JFrame {
         setTitle("Administrador de Memoria");
         setIconImage(new ImageIcon(getClass().getResource("/Img/icon.png")).getImage());
         setResizable(false);
-        getContentPane().setLayout(null);
-        getContentPane().add(jSeparator1);
-        jSeparator1.setBounds(0, 103, 768, 12);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 103, 768, 12));
 
         jPanel1.setBackground(new java.awt.Color(0,0,0,129));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -165,8 +168,7 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(10, 126, 286, 310);
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 126, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(0,0,0,129));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -175,15 +177,12 @@ public class Main extends javax.swing.JFrame {
         jLabel2.setForeground(java.awt.Color.white);
         jLabel2.setText("Lista de Procesos");
 
-        jScrollPane1.setBackground(new java.awt.Color(0,0,0,129));
-
-        panelProcesos.setBackground(java.awt.Color.lightGray);
-        panelProcesos.setMaximumSize(new java.awt.Dimension(150, 30));
-        panelProcesos.setMinimumSize(new java.awt.Dimension(150, 30));
+        panelProcesos.setBackground(new java.awt.Color(0,0,0,140));
+        panelProcesos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        panelProcesos.setForeground(new java.awt.Color(0,0,0,140));
+        panelProcesos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         panelProcesos.setOpaque(false);
-        panelProcesos.setPreferredSize(new java.awt.Dimension(150, 30));
         panelProcesos.setLayout(new java.awt.GridLayout(10, 0));
-        jScrollPane1.setViewportView(panelProcesos);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -192,198 +191,174 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
             .addComponent(jSeparator3)
-            .addComponent(jScrollPane1)
+            .addComponent(panelProcesos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(panelProcesos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel2);
-        jPanel2.setBounds(590, 130, 160, 312);
+        panelProcesos.getAccessibleContext().setAccessibleParent(this);
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 130, -1, 312));
 
         btnR2.setBackground(java.awt.Color.lightGray);
         btnR2.setFocusPainted(false);
         btnR2.setFocusable(false);
         btnR2.setRolloverEnabled(false);
-        getContentPane().add(btnR2);
-        btnR2.setBounds(50, 10, 30, 80);
+        getContentPane().add(btnR2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 30, 80));
 
         btnR4.setBackground(java.awt.Color.lightGray);
         btnR4.setFocusPainted(false);
         btnR4.setFocusable(false);
         btnR4.setRolloverEnabled(false);
-        getContentPane().add(btnR4);
-        btnR4.setBounds(110, 10, 30, 80);
+        getContentPane().add(btnR4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 30, 80));
 
         btnR1.setBackground(java.awt.Color.lightGray);
         btnR1.setFocusPainted(false);
         btnR1.setFocusable(false);
         btnR1.setRolloverEnabled(false);
-        getContentPane().add(btnR1);
-        btnR1.setBounds(20, 10, 30, 80);
+        getContentPane().add(btnR1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 30, 80));
 
         btnR5.setBackground(java.awt.Color.lightGray);
         btnR5.setFocusPainted(false);
         btnR5.setFocusable(false);
         btnR5.setRolloverEnabled(false);
-        getContentPane().add(btnR5);
-        btnR5.setBounds(140, 10, 30, 80);
+        getContentPane().add(btnR5, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 30, 80));
 
         btnR3.setBackground(java.awt.Color.lightGray);
         btnR3.setFocusPainted(false);
         btnR3.setFocusable(false);
         btnR3.setRolloverEnabled(false);
-        getContentPane().add(btnR3);
-        btnR3.setBounds(80, 10, 30, 80);
+        getContentPane().add(btnR3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 30, 80));
 
         btnR11.setBackground(java.awt.Color.lightGray);
         btnR11.setFocusPainted(false);
         btnR11.setFocusable(false);
         btnR11.setRolloverEnabled(false);
-        getContentPane().add(btnR11);
-        btnR11.setBounds(320, 10, 30, 80);
+        getContentPane().add(btnR11, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, 30, 80));
 
         btnR9.setBackground(java.awt.Color.lightGray);
         btnR9.setFocusPainted(false);
         btnR9.setFocusable(false);
         btnR9.setRolloverEnabled(false);
-        getContentPane().add(btnR9);
-        btnR9.setBounds(260, 10, 30, 80);
+        getContentPane().add(btnR9, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 30, 80));
 
         btnR8.setBackground(java.awt.Color.lightGray);
         btnR8.setFocusPainted(false);
         btnR8.setFocusable(false);
         btnR8.setRolloverEnabled(false);
-        getContentPane().add(btnR8);
-        btnR8.setBounds(230, 10, 30, 80);
+        getContentPane().add(btnR8, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 30, 80));
 
         btnR7.setBackground(java.awt.Color.lightGray);
         btnR7.setFocusPainted(false);
         btnR7.setFocusable(false);
         btnR7.setRolloverEnabled(false);
-        getContentPane().add(btnR7);
-        btnR7.setBounds(200, 10, 30, 80);
+        getContentPane().add(btnR7, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 10, 30, 80));
 
         btnR6.setBackground(java.awt.Color.lightGray);
         btnR6.setFocusPainted(false);
         btnR6.setFocusable(false);
         btnR6.setRolloverEnabled(false);
-        getContentPane().add(btnR6);
-        btnR6.setBounds(170, 10, 30, 80);
+        getContentPane().add(btnR6, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 30, 80));
 
         btnR12.setBackground(java.awt.Color.lightGray);
         btnR12.setFocusPainted(false);
         btnR12.setFocusable(false);
         btnR12.setRolloverEnabled(false);
-        getContentPane().add(btnR12);
-        btnR12.setBounds(350, 10, 30, 80);
+        getContentPane().add(btnR12, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 10, 30, 80));
 
         btnR10.setBackground(java.awt.Color.lightGray);
         btnR10.setFocusPainted(false);
         btnR10.setFocusable(false);
         btnR10.setRolloverEnabled(false);
-        getContentPane().add(btnR10);
-        btnR10.setBounds(290, 10, 30, 80);
+        getContentPane().add(btnR10, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, 30, 80));
 
         btnR24.setBackground(java.awt.Color.lightGray);
         btnR24.setFocusPainted(false);
         btnR24.setFocusable(false);
         btnR24.setRolloverEnabled(false);
-        getContentPane().add(btnR24);
-        btnR24.setBounds(710, 10, 30, 80);
+        getContentPane().add(btnR24, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 10, 30, 80));
 
         btnR23.setBackground(java.awt.Color.lightGray);
         btnR23.setFocusPainted(false);
         btnR23.setFocusable(false);
         btnR23.setRolloverEnabled(false);
-        getContentPane().add(btnR23);
-        btnR23.setBounds(680, 10, 30, 80);
+        getContentPane().add(btnR23, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 10, 30, 80));
 
         btnR22.setBackground(java.awt.Color.lightGray);
         btnR22.setFocusPainted(false);
         btnR22.setFocusable(false);
         btnR22.setRolloverEnabled(false);
-        getContentPane().add(btnR22);
-        btnR22.setBounds(650, 10, 30, 80);
+        getContentPane().add(btnR22, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 10, 30, 80));
 
         btnR21.setBackground(java.awt.Color.lightGray);
         btnR21.setFocusPainted(false);
         btnR21.setFocusable(false);
         btnR21.setRolloverEnabled(false);
-        getContentPane().add(btnR21);
-        btnR21.setBounds(620, 10, 30, 80);
+        getContentPane().add(btnR21, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 10, 30, 80));
 
         btnR20.setBackground(java.awt.Color.lightGray);
         btnR20.setFocusPainted(false);
         btnR20.setFocusable(false);
         btnR20.setRolloverEnabled(false);
-        getContentPane().add(btnR20);
-        btnR20.setBounds(590, 10, 30, 80);
+        getContentPane().add(btnR20, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 10, 30, 80));
 
         btnR19.setBackground(java.awt.Color.lightGray);
         btnR19.setFocusPainted(false);
         btnR19.setFocusable(false);
         btnR19.setRolloverEnabled(false);
-        getContentPane().add(btnR19);
-        btnR19.setBounds(560, 10, 30, 80);
+        getContentPane().add(btnR19, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 10, 30, 80));
 
         btnR18.setBackground(java.awt.Color.lightGray);
         btnR18.setFocusPainted(false);
         btnR18.setFocusable(false);
         btnR18.setRolloverEnabled(false);
-        getContentPane().add(btnR18);
-        btnR18.setBounds(530, 10, 30, 80);
+        getContentPane().add(btnR18, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 10, 30, 80));
 
         btnR17.setBackground(java.awt.Color.lightGray);
         btnR17.setFocusPainted(false);
         btnR17.setFocusable(false);
         btnR17.setRolloverEnabled(false);
-        getContentPane().add(btnR17);
-        btnR17.setBounds(500, 10, 30, 80);
+        getContentPane().add(btnR17, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 10, 30, 80));
 
         btnR16.setBackground(java.awt.Color.lightGray);
         btnR16.setFocusPainted(false);
         btnR16.setFocusable(false);
         btnR16.setRolloverEnabled(false);
-        getContentPane().add(btnR16);
-        btnR16.setBounds(470, 10, 30, 80);
+        getContentPane().add(btnR16, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, 30, 80));
 
         btnR15.setBackground(java.awt.Color.lightGray);
         btnR15.setFocusPainted(false);
         btnR15.setFocusable(false);
         btnR15.setRolloverEnabled(false);
-        getContentPane().add(btnR15);
-        btnR15.setBounds(440, 10, 30, 80);
+        getContentPane().add(btnR15, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, 30, 80));
 
         btnR14.setBackground(java.awt.Color.lightGray);
         btnR14.setFocusPainted(false);
         btnR14.setFocusable(false);
         btnR14.setRolloverEnabled(false);
-        getContentPane().add(btnR14);
-        btnR14.setBounds(410, 10, 30, 80);
+        getContentPane().add(btnR14, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, 30, 80));
 
         btnR13.setBackground(java.awt.Color.lightGray);
         btnR13.setFocusPainted(false);
         btnR13.setFocusable(false);
         btnR13.setRolloverEnabled(false);
-        getContentPane().add(btnR13);
-        btnR13.setBounds(380, 10, 30, 80);
+        getContentPane().add(btnR13, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 10, 30, 80));
 
         jButton1.setBackground(java.awt.Color.magenta);
         jButton1.setForeground(java.awt.Color.white);
         jButton1.setText("Espera");
         jButton1.setFocusable(false);
         jButton1.setRolloverEnabled(false);
-        getContentPane().add(jButton1);
-        jButton1.setBounds(480, 420, 80, 30);
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 420, 80, 30));
 
         jButton3.setBackground(java.awt.Color.green);
         jButton3.setForeground(java.awt.Color.white);
@@ -391,28 +366,56 @@ public class Main extends javax.swing.JFrame {
         jButton3.setFocusPainted(false);
         jButton3.setFocusable(false);
         jButton3.setRolloverEnabled(false);
-        getContentPane().add(jButton3);
-        jButton3.setBounds(400, 420, 80, 30);
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 420, 80, 30));
 
-        jButton2.setBackground(java.awt.Color.blue);
+        jButton2.setBackground(new java.awt.Color(51, 153, 255));
         jButton2.setForeground(java.awt.Color.white);
         jButton2.setText("Listo");
         jButton2.setFocusable(false);
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton2.setRolloverEnabled(false);
-        getContentPane().add(jButton2);
-        jButton2.setBounds(320, 420, 80, 30);
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 420, 80, 30));
 
+        jLabel3.setBackground(new java.awt.Color(0,0,0,129));
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/backfont.jpg"))); // NOI18N
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(0, 0, 780, 470);
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 780, 470));
+        jLabel3.getAccessibleContext().setAccessibleParent(panelProcesos);
 
         setBounds(0, 0, 784, 498);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
-    LP.Agregar(txtNombre.getText(), Integer.parseInt(txtMemoria.getText()));
-    AgregarEnMemoria(Integer.parseInt(txtMemoria.getText()));
+        Procesos tmp = new Procesos();
+        JButton tm = new JButton(txtNombre.getText());
+        tmp.setNombre(txtNombre.getText());
+        tmp.setTamaño(Integer.parseInt(txtMemoria.getText()));
+        tm.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                MyIcon icon = new MyIcon();
+                String[] options = {"Eliminar", "Cancelar"};
+                int seleccion = JOptionPane.showOptionDialog(null, "Proceso: "+
+                tmp.getNombre()+"\nTamaño: "+tmp.getTamaño()+"\nEstado: "+
+                tmp.getEstado(), "Titulo",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, icon, 
+                options, options[0]);
+                if(seleccion == 0){
+                    if(tmp.getEstado()=="Listo"){
+                        BorrarMemoria(tmp.getTamaño());
+                    }
+                    
+                    LP.EliminarProceso(tmp);
+                    panelProcesos.remove(tm);
+                    panelProcesos.updateUI();
+                    if(LP.ActualizarEstado()){
+                        AgregarEnMemoria(LP.Mt);
+                    }
+                }
+            }
+        });
+        tmp.setBtn(tm);
+       AgregarEnMemoria(Integer.parseInt(txtMemoria.getText()));
+       LP.Agregar(tmp);
     txtNombre.setText(""); txtMemoria.setText("");
     panelProcesos.add(LP.UB());
     panelProcesos.updateUI();
@@ -420,9 +423,31 @@ public class Main extends javax.swing.JFrame {
 
     
     private void AgregarEnMemoria(int n){
-        for(int i = 0; i<n;i++){
-            color[c] = Color.blue;
+        if(n <= (LP.Memoria-LP.Ocupada)){
+            for(int i = 0; i<n;i++){
+            
+            color[c] = new java.awt.Color(51, 153, 255);
             c++;
+            if(c == 0){
+                color[c] = new java.awt.Color(51, 153, 255);
+            }
+            }
+            Pintar();
+        }
+        
+    }
+    
+    private void BorrarMemoria(int n){
+        for(int i=0; i<n;i++){
+            c--;
+            color[c] = Color.green;
+            
+            
+            
+            if(c == 24){
+               color[c] = Color.green; 
+               c--;
+            }
         }
         Pintar();
     }
@@ -519,16 +544,15 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    public javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JPanel panelProcesos;
+    public javax.swing.JPanel panelProcesos;
     private javax.swing.JTextField txtMemoria;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
