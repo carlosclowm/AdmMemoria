@@ -24,10 +24,19 @@ public class Proceso extends Thread{
             } catch (InterruptedException ex) {
                 Logger.getLogger(Proceso.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }JOptionPane.showMessageDialog(null, "Proceso: "+this.getNombre()+" Terminado!");
+        }//JOptionPane.showMessageDialog(null, "Proceso: "+this.getNombre()+" Terminado!");
+       
         mn.panelProcesos.remove(btn);
+        this.btn.setBackground(new java.awt.Color(51, 153, 255));
         mn.panelProcesos.updateUI();
-        mn.DelMem(Tamaño);
+        this.setEstado("Listo");
+        try{
+            mn.DelMem(Tamaño);
+        }catch(Exception ex){}
+        
+        System.out.println(this.getEstado());
+        mn.ReiniciarH(this);
+        btn.updateUI();
     }
 
     public void setMn(Main mn) {

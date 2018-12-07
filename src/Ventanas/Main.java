@@ -21,6 +21,9 @@ public class Main extends javax.swing.JFrame {
     int Ocupada = 0;
     Proceso[] Esp = new Proceso[24];
     int CE=0;
+    Proceso add;
+    Proceso nuevo;
+    
     public Main() {
         initComponents();
         for(int i = 0; i<24;i++){
@@ -153,9 +156,9 @@ public class Main extends javax.swing.JFrame {
                         .addGap(109, 109, 109)
                         .addComponent(btnCrear))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(121, 121, 121)
+                        .addGap(115, 115, 115)
                         .addComponent(cmbTiempo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -223,7 +226,7 @@ public class Main extends javax.swing.JFrame {
 
         panelProcesos.getAccessibleContext().setAccessibleParent(this);
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 130, -1, 312));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 120, -1, 312));
 
         btnR2.setBackground(java.awt.Color.lightGray);
         btnR2.setFocusPainted(false);
@@ -402,21 +405,120 @@ public class Main extends javax.swing.JFrame {
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
         if(txtNombre.getText().length() != 0){
-            Proceso add = new Proceso(txtNombre.getText(), "Listo", Integer.parseInt(cmbMemoria.getSelectedItem().toString()), Integer.parseInt(cmbTiempo.getSelectedItem().toString()) , new JButton(), this);
+            add = new Proceso(txtNombre.getText(), "Listo", Integer.parseInt(cmbMemoria.getSelectedItem().toString()), Integer.parseInt(cmbTiempo.getSelectedItem().toString()) , new JButton(), this);
             JButton btmp = new JButton(txtNombre.getText());
             btmp.setBackground(new java.awt.Color(51, 153, 255));
             btmp.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent ae) {
-                    Eliminar(btmp, add);
+                MyIcon icon = new MyIcon();
+                String LsEj;
+                if(add.getEstado()=="Listo"){
+                    LsEj="Ejecutar";
+                }else{
+                    LsEj="Listo";
+                }
+                String LsBq;
+                if(add.getEstado()=="Bloqueado"){
+                    LsBq="Listo";
+                    
+                    LsEj="Ejecutar";
+                }else{
+                    LsBq="Bloquear";
+                }
+                String[] options = {LsEj, LsBq, "Borrar", "Canelar"};
+                int seleccion = JOptionPane.showOptionDialog(null, "Proceso: "+
+                add.getNombre()+"\nTamaño: "+add.getTamaño()+"\nEstado: "+
+                add.getEstado()+"\nCPU: "+add.isAlive(), "Proceso",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, icon, 
+                options, options[3]);
+                if(seleccion==0){
+                    if(add.getEstado()=="Ejecutado"){
+                        panelProcesos.remove(btmp);
+                        btmp.setBackground(new java.awt.Color(51, 153, 255));
+                        panelProcesos.add(btmp);
+                        panelProcesos.updateUI();
+                        add.setEstado("Listo");
+                        try{
+                            DelMem(add.getTamaño());
+                        }catch(Exception ex){}
+                        
+                        
+                    }
+                    else{
+                        if(add.getEstado()=="Bloqueado"){
+                        add.resume();
+//                        try{
+//                            add.start();
+//                        }catch(Exception ex){}
+                        }
+                        if(add.getTamaño() <= (Memoria-Ocupada)){
+                        for(int i = 0; i<add.getTamaño();i++){
+                            if(c<0){
+                                c=0;
+                            }
+                        Estado[c] = Color.green;
+                        c++;
+                        }Pintar();
+                        panelProcesos.remove(btmp);
+                        btmp.setBackground(Color.GREEN);
+                        panelProcesos.add(btmp);
+                        
+                        Ocupada += add.getTamaño();
+                        add.setEstado("Ejecutado");
+                        try{
+                            add.start();
+                        }catch(Exception ex){};
+                        if(add.getEstado()=="Listo"){
+                            
+                            add.start();
+                        
+                        }
+                        }else{
+                        JOptionPane.showMessageDialog(null, "Memoria llena!");
+                        }
+                    }
+                    
+                    
+                }if(seleccion==1){
+                    if(add.getEstado()=="Ejecutado"){
+                        DelMem(add.getTamaño());
+                        add.suspend();
+                    }if(add.getEstado()=="Bloqueado"){
+                        
+                        panelProcesos.remove(btmp);
+                        btmp.setBackground(new java.awt.Color(51, 153, 255));
+                        panelProcesos.add(btmp);
+                        panelProcesos.updateUI();
+                        add.setEstado("Listo");
+                        add.resume();
+                    }else{
+                        panelProcesos.remove(btmp);
+                    btmp.setBackground(Color.RED);
+                    panelProcesos.add(btmp);
+                    panelProcesos.updateUI();
+                    add.setEstado("Bloqueado");
+                    Esp[CE]=add;
+                    CE++;
+                    }
+                    
+                }if(seleccion==2){
+                    if(add.getEstado()=="Bloqueado"){
+                        panelProcesos.remove(btmp);
+                        panelProcesos.updateUI();
+                    }else{
+                        Eliminar(btmp, add);
+                    }
+                    
+                }
+                    
                 }
             });
             add.setBtn(btmp);
-            add.start();
             panelProcesos.add(btmp);
             panelProcesos.updateUI();
-            
-            Asig(Integer.parseInt(cmbMemoria.getSelectedItem().toString()), btmp, add);
+            add.start();
+//            Asig(Integer.parseInt(cmbMemoria.getSelectedItem().toString()), btmp, add);
             
             
         }else{
@@ -424,7 +526,12 @@ public class Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCrearActionPerformed
 
-
+    public void ReiniciarH(Proceso res){
+        nuevo = new Proceso(res.getNombre(),"Listo",res.getTamaño(),res.getTiempo(),res.getBtn(),this);
+        panelProcesos.add(nuevo.getBtn());
+        panelProcesos.updateUI();
+        add = nuevo;
+    }
     
     private void Asig(int n, JButton btmp, Proceso add){
         if(n <= (Memoria-Ocupada)){
@@ -438,13 +545,7 @@ public class Main extends javax.swing.JFrame {
                 panelProcesos.updateUI();
                 Ocupada += n;
             }else{
-                panelProcesos.remove(btmp);
-                btmp.setBackground(Color.RED);
-                panelProcesos.add(btmp);
                 
-                panelProcesos.updateUI();
-                Esp[CE]=add;
-                CE++;
             }
     }
 
@@ -465,14 +566,14 @@ public class Main extends javax.swing.JFrame {
             }
         }Pintar();
         Ocupada -= d;
-        for(int i = 0; i<CE;i++){
-            if(Esp[i].getTamaño()<=(Memoria-Ocupada) && Ocupada>0){
-                Asig(Esp[i].getTamaño(), Esp[i].getBtn(),Esp[i]);
-                for(int j =0;i<i;i++){
-                    Esp[j]=Esp[j+1];
-                }CE--;
-            }
-        }
+//        for(int i = 0; i<CE;i++){
+//            if(Esp[i].getTamaño()<=(Memoria-Ocupada) && Ocupada>0){
+//                Asig(Esp[i].getTamaño(), Esp[i].getBtn(),Esp[i]);
+//                for(int j =0;i<i;i++){
+//                    Esp[j]=Esp[j+1];
+//                }CE--;
+//            }
+//        }
     }
   
     private void Pintar(){
